@@ -25,9 +25,20 @@ class TestSample < Test::Unit::TestCase
       assert_equal(-1, chop(8, [1, 3, 5, 7]))
     end
 
+    # def chop(target, array)
+    #     return -1 unless array.include? target
+    #     return array.index target
+    # end
+
     def chop(target, array)
-        return -1 unless array.include? target
-        return array.index target
+        search(target, array, 0, array.length)
+    end
+    def search(target, array, p1, p2)
+        return -1 if p1 == p2
+        m = (p1 + p2) /2
+        diff = array[m] - target
+        return m if diff == 0
+        search(target, array, diff < 0 ? m+1 : p1, diff < 0 ? p2 : m)
     end
 end
 
